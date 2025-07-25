@@ -1,0 +1,120 @@
+This is a SAFE pipe separated value file for custom installation.
+It preserves existing user configurations and only installs HyDE-specific files.
+
+Note:
+- Lines starting with '#' are comments
+- The only known variable is '${HOME}'
+- This is a 4 column file separated by '|'
+- Each column should use spaces to separate array
+
+Structure:
+#?        flag|path|target|dependency
+
+# Hyde core files - using P (Preserve) flag to not overwrite existing configs
+P|${HOME}/.config/hyde|config.toml|hyprland
+P|${HOME}/.config/hypr|hyde.conf shaders.conf workflows.conf animations.conf windowrules.conf keybindings.conf userprefs.conf monitors.conf|hyprland
+P|${HOME}/.config/hypr|nvidia.conf|hyprland nvidia-utils
+P|${HOME}/.config/hypr/themes|theme.conf wallbash.conf colors.conf|hyprland
+P|${HOME}/.config/systemd|user|systemd
+P|${HOME}/.local/state/hyde|hyprland.conf|hyprland
+
+# Essential HyDE files that need to be installed
+S|${HOME}/.config/hypr|hyprland.conf|hyprland
+O|${HOME}/.local/bin|hyde-shell hydectl|hyprland
+O|${HOME}/.local/share|hyde|hyprland
+O|${HOME}/.local/lib|hyde|hyprland
+
+# GTK/Qt theming - preserve existing
+P|${HOME}/.config|gtk-3.0|nwg-look
+P|${HOME}/.config|nwg-look|nwg-look
+P|${HOME}/.config|xsettingsd|nwg-look
+P|${HOME}|.gtkrc-2.0|nwg-look
+P|${HOME}/.config|Kvantum|kvantum
+P|${HOME}/.config|qt5ct|qt5ct
+P|${HOME}/.config|qt6ct|qt6ct
+
+# Wallbash system
+S|${HOME}/.config/hyde|wallbash|hyprland
+S|${HOME}/.config/hypr|animations|hyprland  
+S|${HOME}/.config/hypr|workflows|hyprland
+S|${HOME}/.config/hypr|shaders|hyprland
+
+# Editor configs - preserve existing
+P|${HOME}/.config/Code - OSS/User|settings.json|code
+P|${HOME}/.config/Code/User|settings.json|visual-studio-code-bin
+P|${HOME}/.config/VSCodium/User|settings.json|vscodium
+
+# Bar - preserve existing waybar config
+P|${HOME}/.config/waybar|user-style.css config.jsonc theme.css style.css|waybar
+S|${HOME}/.config/waybar|modules styles layouts menus|waybar
+S|${HOME}/.local/share|waybar|waybar
+
+# Terminal - preserve existing
+P|${HOME}/.config|lsd|lsd
+P|${HOME}/.config|fastfetch|fastfetch
+O|${HOME}/.local/share/fastfetch/presets|hyde|fastfetch
+
+P|${HOME}/.config/kitty|hyde.conf theme.conf|kitty
+P|${HOME}/.config/kitty|kitty.conf|kitty
+
+# Shell - IMPORTANT: Use P flag to preserve existing shell configs
+P|${HOME}/.config|fish|fish
+P|${HOME}/.config/starship|starship.toml|starship
+
+# ZSH configs - preserve existing, only add HyDE-specific functions
+P|${HOME}|.zshenv|zsh
+P|${HOME}/.config/zsh|.zshenv|zsh
+S|${HOME}/.config/zsh/conf.d|hyde 00-hyde.zsh|zsh
+S|${HOME}/.config/zsh/functions|error-handlers.zsh|zsh 
+P|${HOME}/.config/zsh/functions|fzf.zsh|zsh fzf
+P|${HOME}/.config/zsh/functions|duf.zsh|zsh duf
+P|${HOME}/.config/zsh/functions|eza.zsh|zsh eza
+P|${HOME}/.config/zsh/functions|bat.zsh|zsh bat
+P|${HOME}/.config/zsh/completions|fzf.zsh|zsh fzf
+S|${HOME}/.config/zsh/completions|hydectl.zsh|zsh
+
+P|${HOME}/.config/zsh|.zshrc user.zsh prompt.zsh plugin.zsh|zsh
+P|${HOME}/.config/zsh|.p10k.zsh|zsh zsh-theme-powerlevel10k
+
+# Vim - preserve existing
+P|${HOME}/.config/vim|vimrc|vim
+S|${HOME}/.config/vim/colors|wallbash.vim|vim
+S|${HOME}/.config/vim|hyde.vim|vim
+
+# File Explorer - preserve existing
+P|${HOME}/.local/state|dolphinstaterc|dolphin
+P|${HOME}/.config|baloofilerc|dolphin
+P|${HOME}/.config/menus|applications.menu|dolphin
+P|${HOME}/.config|dolphinrc|dolphin
+P|${HOME}/.config|kdeglobals|dolphin
+S|${HOME}/.local/share/kio/servicemenus|hydewallpaper.desktop|dolphin
+S|${HOME}/.local/share/kxmlgui5|dolphin|dolphin
+S|${HOME}/.local/share|dolphin|dolphin
+
+# Input - preserve existing
+P|${HOME}/.config|libinput-gestures.conf|libinput-gestures
+
+# Wayland flags - preserve existing
+P|${HOME}/.config|spotify-flags.conf|spotify
+P|${HOME}/.config|code-flags.conf|code
+P|${HOME}/.config|code-flags.conf|visual-studio-code-bin
+P|${HOME}/.config|codium-flags.conf|vscodium
+P|${HOME}/.config|electron-flags.conf|electron
+
+# Notifications - preserve existing
+P|${HOME}/.config|dunst|dunst
+
+# Gaming - preserve existing
+P|${HOME}/.config|MangoHud|mangohud
+
+# Launcher - preserve existing
+P|${HOME}/.config|rofi|rofi
+P|${HOME}/.config|wlogout|wlogout
+
+# Lock Screen
+P|${HOME}/.config|swaylock|swaylock-effects
+P|${HOME}/.config/hypr|hyprlock.conf|hyprlock
+S|${HOME}/.config/hypr|hyprlock|hyprlock
+
+# Idle daemon
+P|${HOME}/.config/hypr|hypridle.conf|hypridle
