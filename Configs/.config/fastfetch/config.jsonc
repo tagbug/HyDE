@@ -8,23 +8,21 @@ fastfetch --config hyde/*.jsonc
 */
 {
   "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
-  "logo": {
-    "source": "\"$(fastfetch.sh logo)\"",
-    "height": 18
-  },
   "display": {
     "separator": " : "
   },
   "modules": [
+    "break",
+    {
+      "type": "title",
+      "key": " ",
+      "format": "  {6} {7} {8}"
+    },
     {
       "type": "command",
       "key": "  ",
       "keyColor": "blue",
       "text": "splash=$(hyprctl splash);echo $splash"
-    },
-    {
-      "type": "custom",
-      "format": "┌──────────────────────────────────────────┐"
     },
     {
       "type": "chassis",
@@ -65,20 +63,7 @@ fastfetch --config hyde/*.jsonc
       "format": "{2}",
       "keyColor": "yellow"
     },
-    {
-      "type": "custom",
-      "format": "└──────────────────────────────────────────┘"
-    },
     "break",
-    {
-      "type": "title",
-      "key": "  ",
-      "format": "{6} {7} {8}"
-    },
-    {
-      "type": "custom",
-      "format": "┌──────────────────────────────────────────┐"
-    },
     {
       "type": "cpu",
       "format": "{1} @ {7}",
@@ -114,15 +99,10 @@ fastfetch --config hyde/*.jsonc
       "key": "  󱫐 Uptime ",
       "keyColor": "red"
     },
-    {
-      "type": "custom",
-      "format": "└──────────────────────────────────────────┘"
-    },
+    "break",
     {
       "type": "colors",
-      "paddingLeft": 2,
-      "symbol": "circle"
-    },
-    "break"
+      "paddingLeft": 2
+    }
   ]
 }

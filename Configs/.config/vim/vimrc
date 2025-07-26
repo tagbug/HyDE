@@ -5,8 +5,114 @@ execute 'source ' . s:VIM_DIR . '/hyde.vim'
 " Adding your custom colorschem
 "colorscheme zaibatsu "the only nice built-in colorscheme 
 
-" remaps
-"inoremap <C-c> <Esc>
-"nnoremap <leader>ff :w<CR>
-"nnoremap ; :
-"vnoremap ; :
+
+" ========================
+" 基础配置
+" ========================
+set nocompatible              " 禁用 Vi 兼容模式，启用 Vim 特性
+filetype plugin indent on     " 启用文件类型检测和插件
+
+" ========================
+" 编码与语言
+" ========================
+set encoding=utf-8            " 内部编码为 UTF-8
+set fileencodings=utf-8,gbk   " 自动识别文件编码（支持中文 GBK）
+set langmenu=zh_CN.UTF-8      " 菜单语言为中文（需系统支持）
+language messages zh_CN.UTF-8 " 提示信息语言为中文（需系统已安装中文包）
+
+" ========================
+" 界面与主题
+" ========================
+syntax enable                 " 启用语法高亮
+set termguicolors             " 启用真彩色（终端需支持，如 iTerm2、Windows Terminal）
+" colorscheme snazzy            " 使用 Snazzy 主题（需先安装插件）
+set background=dark           " 深色背景模式
+set number                    " 显示行号
+" set relativenumber            " 显示相对行号（便于跳转）
+set norelativenumber          " 禁用相对行号（override previous setting）
+set cursorline                " 高亮当前行
+set showcmd                   " 显示输入命令
+set title                     " 窗口标题显示文件名
+
+" ========================
+" 编辑与缩进
+" ========================
+set tabstop=4                 " Tab 显示为 4 空格
+set shiftwidth=4              " 自动缩进宽度
+set expandtab                 " 将 Tab 转换为空格
+set autoindent                " 自动缩进
+set smartindent               " 智能缩进
+set nowrap                    " 不自动换行
+set backspace=indent,eol,start " 允许退格删除缩进和换行
+
+" ========================
+" 搜索与替换
+" ========================
+set hlsearch                  " 高亮搜索结果
+set incsearch                 " 实时搜索
+set ignorecase                " 忽略大小写
+set smartcase                 " 智能大小写（含大写时严格匹配）
+
+" ========================
+" 键位映射
+" ========================
+let mapleader = " "           " 定义 Leader 键为空格
+
+" 快速保存/退出
+nnoremap <Leader>w :w<CR>     " 空格 + w 保存
+nnoremap <Leader>q :q<CR>     " 空格 + q 退出
+
+" 分屏操作
+nnoremap <Leader>sv :vsplit<CR>  " 垂直分屏
+nnoremap <Leader>sh :split<CR>   " 水平分屏
+nnoremap <C-h> <C-w>h        " Ctrl+h 切换到左分屏
+nnoremap <C-j> <C-w>j        " Ctrl+j 切换到下分屏
+nnoremap <C-k> <C-w>k        " Ctrl+k 切换到上分屏
+nnoremap <C-l> <C-w>l        " Ctrl+l 切换到右分屏
+
+" 快速切换相对行号
+nnoremap <Leader>rn :set relativenumber!<CR>
+
+" 自定义
+nnoremap <Leader><Esc> :noh<CR>  " 空格 + Esc 取消高亮
+
+
+" ========================
+" 插件管理（使用 vim-plug）
+" ========================
+let s:VIM_DIR = fnamemodify($MYVIMRC, ':h')
+call plug#begin(s:VIM_DIR . '/plugged')
+
+" 主题插件
+Plug 'connorholyday/vim-snazzy'       " Snazzy 主题
+
+" 文件管理
+Plug 'preservim/nerdtree'             " 文件树
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }  " 模糊搜索
+Plug 'junegunn/fzf.vim'
+
+" 代码开发
+Plug 'neoclide/coc.nvim', {'branch': 'release'}  " 代码补全
+Plug 'tpope/vim-commentary'          " 快速注释
+" Plug 'jiangmiao/auto-pairs'          " 自动括号补全
+
+" Git 集成
+Plug 'tpope/vim-fugitive'            " Git 操作
+Plug 'airblade/vim-gitgutter'        " Git 差异标记
+
+" 界面增强
+Plug 'vim-airline/vim-airline'       " 状态栏美化
+Plug 'vim-airline/vim-airline-themes' " 状态栏主题
+
+call plug#end()
+
+" ========================
+" 其他优化
+" ========================
+set hidden              " 允许切换缓冲区而不保存
+set autoread            " 自动重新加载外部修改的文件
+set mouse=a             " 启用鼠标支持（滚动/选择）
+set clipboard=unnamed   " 共享系统剪贴板（需 Vim 编译时支持 +clipboard）
+
+" 自动切换工作目录到当前文件所在目录
+autocmd BufEnter * silent! lcd %:p:h
